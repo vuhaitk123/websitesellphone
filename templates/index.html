@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Điện Thoại</title>
+
+    <!-- Kết nối CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+    <!-- HEADER -->
+<div class="top-header">
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="static/images/logo.png">
+        <div class="hotline">
+            <b>dienthoaitot.vn</b> <br>
+            0388.292.302 | 0977.037.052
+            
+        </div>
+    </div>
+
+    
+
+
+    <!-- Search -->
+    
+    <!-- Menu phải -->
+    <div class="menu-right">
+        <div class="item">
+            <a href="{{ url_for('main.home') }}">Trang chủ</a>
+        </div>
+            <!-- Bán hàng Online -->
+        <div class="item has-dropdown">
+            📞 Bán hàng Online
+
+            <div class="dropdown">
+                <h3>BÁN HÀNG ONLINE (8H - 21H)</h3>
+
+                <p>Zalo: 0388292302</p>
+                <p>Zalo: 0963791836</p>
+                <p>Zalo: 0977037052</p>
+
+                <hr>
+
+                <p>Hỗ trợ cửa hàng:</p>
+                <p>Hà Nội: 0818.215.215</p>
+                <p>TP.HCM: 0399.555.258</p>
+            </div>
+        </div>
+        
+        <div class="item">
+            <a href="{{ url_for('products.products_page') }}">✔ Tra sản phẩm</a>
+        </div>
+        <form action="/" method="GET" class="search-box">
+            <input type="text" name="q" placeholder="Tìm kiếm sản phẩm...">
+        </form>
+        
+        <!-- Nút 3 gạch -->
+        <div class="menu-wrapper">
+            <div class="menu-toggle">☰</div>
+
+            <nav class="menu-hover">
+                <a href="{{ url_for('main.home') }}">Trang chủ</a>
+                <a href="{{ url_for('products.products_page') }}">Sản phẩm</a>
+                <a href="{{ url_for('cart.cart') }}">Giỏ hàng</a>
+            </nav>
+        </div>
+
+        
+        
+       {% if session.get('user') %}
+            <div class="item user-menu">
+                👋 {{ session.get('user') }}
+
+                <div class="user-dropdown">
+
+                    {% if session.get('role') == 'admin' %}
+                        <a href="{{ url_for('admin.dashboard') }}">Admin</a>
+                    {% endif %}
+
+                    <a href="/profile">Thông tin cá nhân</a>
+                    <a href="/logout">Đăng xuất</a>
+                </div>
+            </div>
+        {% else %}
+            <a class="item" href="/login">Đăng nhập</a>
+        {% endif %}
+
+
+
+
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ===== USER MENU =====
+    document.querySelectorAll('.user-menu').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+            e.stopPropagation();
+
+            const dropdown = el.querySelector('.user-dropdown');
+
+            // Đóng tất cả menu khác
+            document.querySelectorAll('.user-dropdown.open, .menu-hover.open')
+                .forEach(d => {
+                    if (d !== dropdown) d.classList.remove('open');
+                });
+
+            // Toggle menu user
+            dropdown.classList.toggle('open');
+        });
+    });
+
+    // ===== MENU 3 GẠCH =====
+    const menuToggle = document.querySelector('.menu-toggle');
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+
+            const menuHover = document.querySelector('.menu-hover');
+
+            // Đóng user menu
+            document.querySelectorAll('.user-dropdown.open')
+                .forEach(d => d.classList.remove('open'));
+
+            menuHover.classList.toggle('open');
+        });
+    }
+
+    // ===== CLICK RA NGOÀI =====
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.user-dropdown.open, .menu-hover.open')
+            .forEach(d => d.classList.remove('open'));
+    });
+
+});
+</script>
+</div>
+
+<!-- Thông báo mua hàng thành công --->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, msg in messages %}
+            <div class="alert {{ category }}">
+                {{ msg }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<script>
+    setTimeout(function() {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.style.transition = "opacity 0.5s";
+            alert.style.opacity = "0";
+
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 10000); // 10 giây
+</script>
+
+<!-- KHUNG LIÊN HỆ -->
+<!-- ===== CONTACT FIXED ===== -->
+<div class="contact-fixed">
+
+    <a href="https://www.facebook.com/vape.chuyen.7" 
+       class="contact-btn facebook" 
+       data-tooltip="Facebook"
+       target="_blank">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+            <path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/>
+        </svg>
+    </a>
+
+    <a href="https://zalo.me/0388292302"
+        class="zalo-logo contact-btn zalo"
+        data-tooltip="Zalo"
+        target="_blank">
+        Zalo
+    </a>
+
+
+
+    <a href="https://tiktok.com/@vuvanhai204" 
+        class="contact-btn tiktok"
+        data-tooltip="tiktok"
+        target="_blank">
+        
+
+            <img src="static/images/titk.png">
+
+    </a>
+
+
+
+    <a href=https://www.youtube.com/@HaiVu-jj6xw
+       class="contact-btn youtube" 
+       data-tooltip="YouTube"
+       target="_blank">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+            <path d="M23.5 6.2s-.3-1.9-1.1-2.7c-1-.7-2.2-.7-2.7-.8C16.8 2.5 12 2.5 12 2.5s-4.8 0-7.7.2c-.5.1-1.7.1-2.7.8C.8 4.3.5 6.2.5 6.2S.2 8.4.2 10.6v2.1c0 2.2.3 4.4.3 4.4s.3 1.9 1.1 2.7c1 .7 2.4.7 3 .8C6.6 20.8 12 20.8 12 20.8s4.8 0 7.7-.2c.5-.1 1.7-.1 2.7-.8.8-.8 1.1-2.7 1.1-2.7s.3-2.2.3-4.4v-2.1c0-2.2-.3-4.4-.3-4.4zM9.7 14.6V8.6l6.6 3-6.6 3z"/>
+        </svg>
+    </a>
+
+    <a href="tel:0388292302" 
+       class="contact-btn phone" 
+       data-tooltip="Gọi ngay">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="white">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+    </a>
+
+    <!-- Scroll to top -->
+    <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+            <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+        </svg>
+    </button>
+
+</div>
+
+
+</header>
+
+
+<!-- Banner -->
+
+<div class="banner-wrap">
+
+   
+
+    <!-- giữa -->
+    <div class="slider">
+        <img id="banner" src="static/images/banner/banner1.jpg">
+    </div>
+
+    <!-- phải (2 ảnh chồng) -->
+    <div class="right-box">
+        <img class="img1" src="static/images/banner/right.jpg">
+        <img class="img2" src="static/images/banner/right2.jpg">
+    </div>
+
+</div>
+
+<script>
+let images = [
+    "static/images/banner/banner1.jpg",
+    "static/images/banner/banner2.jpg",
+    "static/images/banner/banner3.jpg",
+    "static/images/banner/banner4.jpg",
+];
+
+let index = 0;
+let banner = document.getElementById("banner");
+
+setInterval(() => {
+    index++;
+    if (index >= images.length) index = 0;
+
+    banner.style.opacity = 0;              // 🔥 fade out
+    setTimeout(() => {
+        banner.src = images[index];
+        banner.style.opacity = 1;          // 🔥 fade in
+    }, 300);
+}, 5000);
+</script>
+
+<!--Brand-->
+
+{% extends "base.html" %}
+{% block content %}
+<div class="brand-list">
+    <div class="brand-item">
+        <a href="#samsung">
+            <img src="{{ url_for('static', filename='images/icon/ss.png') }}">
+        </a>    
+    </div>
+
+    <div class="brand-item">
+        <a href="#iphone">
+            <img src="{{ url_for('static', filename='images/icon/ip.png') }}">
+        </a>    
+    </div>
+
+    <div class="brand-item">
+        <a href="#xiaomi">
+            <img src="{{ url_for('static', filename='images/icon/xio.png') }}">
+        </a>    
+    </div>
+
+    <div class="brand-item">
+        <a href="#realme">
+            <img src="{{ url_for('static', filename='images/icon/realme.png') }}">
+        </a>   
+    </div>
+</div>
+
+<!-- Quảng cáo -->
+<div class="ads">
+    <img src="{{ url_for('static', filename='images/qc/qc1.png') }}" alt="Quảng cáo">
+</div>
+
+
+
+
+
+
+    <!-- sản phẩm -->
+
+
+
+{% if keyword %}
+    <h2 class="search-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Kết quả tìm kiếm: "{{ keyword }}"
+    </h2>
+{% endif %}
+
+
+{% if keyword and not iphone and not samsung and not xiaomi and not realme %}
+    <p class="no-result">❌ Không tìm thấy sản phẩm</p>
+{% endif %}
+
+
+{% set brands = [
+    ("realme", realme, "realme.png"),
+    ("iphone", iphone, "ip.png"),
+    ("samsung", samsung, "ss.png"),
+    ("xiaomi", xiaomi, "xio.png")
+] %}
+
+{% for brand, products, icon in brands %}
+    {% if products %}
+    
+    <h2 id="{{ brand }}">
+        <img src="{{ url_for('static', filename='images/icon/' + icon) }}">
+    </h2>
+
+    <div class="products">
+        {% for p in products %}
+        <div class="card">
+
+            {% if p.old_price and p.old_price > p.price %}
+            <div class="sale">
+                🔥 Giảm {{ "{:,.0f}".format(p.old_price - p.price).replace(",", ".") }} đ
+            </div>
+            {% endif %}
+
+            <img src="{{ p.image }}">
+            
+
+            
+            <div class="name">{{ p.name }}</div>
+
+            <div class="price-box">
+                <span class="price">
+                    {{ "{:,.0f}".format(p.price).replace(",", ".") }} đ
+                </span>
+
+                {% if p.old_price %}
+                <span class="old">
+                    {{ "{:,.0f}".format(p.old_price).replace(",", ".") }} đ
+                </span>
+                {% endif %}
+            </div>
+
+            <!-- NÚT MUA -->
+            <a href="{{ url_for('cart.add', pid=p.id) }}" class="btn">
+            
+                Mua
+            </a>
+
+            <div class="rate">⭐⭐⭐⭐⭐ <span>1 đánh giá</span></div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+{% endfor %}
+
+
+
+
+<!-- Footer -->
+
+
+<!-- nội dung trang -->
+
+{% endblock %}
+
+</body>
+</html>

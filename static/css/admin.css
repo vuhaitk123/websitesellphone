@@ -1,0 +1,539 @@
+/* ============================================================
+   ADMIN DASHBOARD — Classic Light Aesthetic
+   Font: Arial (system)
+   Theme: White + warm gold accents
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-base:        #f7f3ed;
+  --bg-sidebar:     #fdfaf6;
+  --bg-card:        #ffffff;
+  --bg-hover:       #f5f0e8;
+  --border:         rgba(160, 120, 60, 0.15);
+  --border-gold:    rgba(138, 104, 32, 0.35);
+
+  --gold:           #8a6820;
+  --gold-dim:       rgba(138, 104, 32, 0.08);
+  --gold-glow:      rgba(138, 104, 32, 0.20);
+  --copper:         #a0522d;
+  --copper-dim:     rgba(160, 82, 45, 0.08);
+  --sepia:          #6b4c2a;
+  --sepia-dim:      rgba(107, 76, 42, 0.08);
+
+  --text-primary:   #1a1208;
+  --text-secondary: #7a6040;
+  --text-muted:     #c5b090;
+
+  --sidebar-w:      240px;
+  --radius:         12px;
+  --radius-sm:      8px;
+  --transition:     0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base ───────────────────────────────────────────────── */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  /* Subtle crosshatch texture */
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238a6820' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ── Layout ─────────────────────────────────────────────── */
+.admin {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ────────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 28px 16px 32px;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100;
+  box-shadow: 2px 0 24px rgba(138, 104, 32, 0.06);
+  animation: slideInLeft 0.5s var(--transition) both;
+}
+
+/* Decorative double top line */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 16px; right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 24px; right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(138, 104, 32, 0.25), transparent);
+}
+
+.sidebar h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 8px 12px 22px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.sidebar a:hover {
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding-left: 18px;
+}
+
+/* Active sidebar link */
+.sidebar a.active,
+.sidebar a:first-of-type {
+  color: var(--gold);
+  background: var(--gold-dim);
+  border: 1px solid rgba(138, 104, 32, 0.18);
+  box-shadow: inset 2px 0 0 var(--gold);
+}
+
+/* ── Main ───────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  animation: fadeInUp 0.6s var(--transition) 0.1s both;
+}
+
+/* ── Topbar ─────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.topbar p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding-bottom: 4px;
+}
+
+/* ── Cards ──────────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  animation: cardIn 0.5s var(--transition) both;
+}
+
+.card:nth-child(1) { animation-delay: 0.15s; }
+.card:nth-child(2) { animation-delay: 0.25s; }
+.card:nth-child(3) { animation-delay: 0.35s; }
+
+/* Top accent line */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-color, var(--gold)), transparent);
+}
+
+/* Left accent bar */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent-color, var(--gold));
+  opacity: 0.45;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(138, 104, 32, 0.12);
+  border-color: rgba(138, 104, 32, 0.25);
+}
+
+/* Color variants */
+.card.blue   { --accent-color: var(--gold); }
+.card.purple { --accent-color: var(--copper); }
+.card.green  { --accent-color: var(--sepia); }
+
+.card h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+  color: var(--accent-color, var(--gold));
+}
+
+.card p {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   DÙNG CHUNG: users.html + orders.html
+   ============================================================ */
+
+/* ── Content ────────────────────────────────────────────── */
+.content {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeInUp 0.6s var(--transition) 0.1s both;
+}
+
+/* ── Page Header ────────────────────────────────────────── */
+.page-header {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+.page-header h1 svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Table ──────────────────────────────────────────────── */
+.table-wrap {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(138, 104, 32, 0.06);
+  animation: cardIn 0.5s var(--transition) 0.15s both;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table thead tr {
+  background: var(--bg-hover);
+  border-bottom: 1px solid var(--border);
+}
+
+.table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: var(--gold-dim);
+}
+
+.table td {
+  padding: 14px 20px;
+  color: var(--text-secondary);
+  vertical-align: middle;
+}
+
+.table td:first-child {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   CHỈ DÙNG CHO: orders.html
+   ============================================================ */
+
+/* ── Ô tổng tiền ────────────────────────────────────────── */
+.table td.amount {
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   CHỈ DÙNG CHO: users.html
+   ============================================================ */
+
+/* ── User cell ──────────────────────────────────────────── */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1px solid rgba(138, 104, 32, 0.2);
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+/* ── Role badge ─────────────────────────────────────────── */
+.role-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background: rgba(138, 104, 32, 0.12);
+  color: var(--gold);
+  border: 1px solid rgba(138, 104, 32, 0.25);
+}
+
+.role-user {
+  background: rgba(107, 76, 42, 0.08);
+  color: var(--sepia);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+}
+
+/* ── Delete button ──────────────────────────────────────── */
+
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes cardIn {
+  from { transform: translateY(16px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0) scale(1);       opacity: 1; }
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .sidebar h2 {
+    width: 100%;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+  }
+
+  .admin {
+    flex-direction: column;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 24px 16px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .topbar h1 { font-size: 1.4rem; }
+
+  .content {
+    margin-left: 0;
+    padding: 24px 16px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 14px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+/* ── Nút thêm mới ───────────────────────────────────────── */
+.btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top:10px;
+    letter-spacing: 0.02em;
+    color: var(--bg-card);
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.btn-add:hover {
+    background: var(--sepia);
+    border-color: var(--sepia);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(138, 104, 32, 0.25);
+}
+
+.btn-add:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+/* ── Nút sửa ────────────────────────────────────────────── */
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid rgba(138, 104, 32, 0.20);
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.btn-edit:hover {
+    background: rgba(138, 104, 32, 0.15);
+    border-color: rgba(138, 104, 32, 0.40);
+}
+
+/* ── Nút xóa ────────────────────────────────────────────── */
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--copper);
+    background: var(--copper-dim);
+    border: 1px solid rgba(160, 82, 45, 0.20);
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.btn-delete:hover {
+    background: rgba(160, 82, 45, 0.15);
+    border-color: rgba(160, 82, 45, 0.40);
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <div class="tabs">
+            <div class="tab active" onclick="showForm('login', this)">Đăng nhập</div>
+            <div class="tab" onclick="showForm('register', this)">Đăng ký</div>
+        </div>
+
+        <!-- LOGIN -->
+        <div class="form active" id="form-login">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="alert">{{ messages[0] }}</div>
+              {% endif %}
+            {% endwith %}
+
+            <form action="/login" method="POST" autocomplete="off">
+                <input type="text" name="fakeuser" style="display:none">
+                <input type="password" name="fakepass" style="display:none">
+
+                <div class="input-box">
+                    <input type="text" name="username" required placeholder=" " autocomplete="off">
+                    <label>Tài khoản</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" required placeholder=" " autocomplete="new-password">
+                    <label>Mật khẩu</label>
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button>
+            </form>
+        </div>
+
+        <!-- REGISTER -->
+        <div class="form" id="form-register">
+            {% with messages = get_flashed_messages(category_filter=["register"]) %}
+              {% if messages %}
+                <div class="alert">{{ messages[0] }}</div>
+              {% endif %}
+            {% endwith %}
+
+            <form action="/register" method="POST" autocomplete="off" id="register-form">
+                <div class="input-box">
+                    <input type="text" name="username" required placeholder=" ">
+                    <label>Tài khoản</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="fullname" required placeholder=" ">
+                    <label>Họ và tên</label>
+                </div>
+                <div class="input-box">
+                    <input type="tel" name="phone" required placeholder=" " pattern="(0|\+84)[0-9]{9,10}">
+                    <label>Số điện thoại</label>
+                    <span class="hint">Định dạng: 09xxxxxxxx</span>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="address" required placeholder=" ">
+                    <label>Địa chỉ</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" required placeholder=" " id="password" oninput="checkPassword(this)">
+                    <label>Mật khẩu</label>
+                    <span class="hint" id="pw-hint">Tối thiểu 8 ký tự, có chữ hoa, số và ký tự đặc biệt</span>
+                </div>
+
+                <button type="submit" class="btn">Đăng ký</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function showForm(name, tab) {
+    document.querySelectorAll('.form').forEach(f => f.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('form-' + name).classList.add('active');
+    tab.classList.add('active');
+}
+
+function checkPassword(input) {
+    const val = input.value;
+    const hint = document.getElementById('pw-hint');
+    const strong = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(val);
+    hint.style.color = strong ? 'green' : '';
+    hint.textContent = strong ? '✓ Mật khẩu hợp lệ' : 'Tối thiểu 8 ký tự, có chữ hoa, số và ký tự đặc biệt';
+}
+
+document.getElementById('register-form').addEventListener('submit', function(e) {
+    const pw = document.getElementById('password').value;
+    const strong = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(pw);
+    if (!strong) {
+        e.preventDefault();
+        alert('Mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa, số và ký tự đặc biệt!');
+    }
+});
+</script>
+
+</body>
+</html>
