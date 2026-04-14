@@ -1,0 +1,437 @@
+/* ============================================
+   PRODUCT DETAIL — product_detail.css
+   Import vào base.html hoặc link trực tiếp:
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/product_detail.css') }}">
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+/* ---------- RESET & BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.pd-section {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: #1a1a2e;
+  background: #f8f7f4;
+  min-height: 100vh;
+  padding: 2.5rem 1rem 4rem;
+}
+
+/* ---------- LAYOUT ---------- */
+.pd-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+/* ---------- GALLERY ---------- */
+.pd-gallery {
+  position: relative;
+}
+
+.pd-img-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e8e4dc;
+  aspect-ratio: 1 / 1;
+}
+
+.pd-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.pd-img:hover {
+  transform: scale(1.04);
+}
+
+.pd-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  background: #c0392b;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 5px 12px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+/* ---------- INFO ---------- */
+.pd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding-top: 0.5rem;
+}
+
+.pd-category {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8b8378;
+}
+
+.pd-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.3;
+}
+
+/* ---------- RATING ---------- */
+.pd-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pd-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star-filled { color: #e67e22; font-size: 16px; }
+.star-empty  { color: #d5cfc5; font-size: 16px; }
+
+.pd-rating-text {
+  font-size: 13px;
+  color: #8b8378;
+}
+
+/* ---------- DIVIDER ---------- */
+.pd-divider {
+  height: 1px;
+  background: #e8e4dc;
+  border: none;
+}
+
+/* ---------- GIÁ ---------- */
+.pd-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pd-price {
+  font-size: 32px;
+  font-weight: 700;
+  color: #c0392b;
+  letter-spacing: -0.5px;
+}
+
+.pd-price-old {
+  font-size: 17px;
+  color: #b0a99e;
+  text-decoration: line-through;
+}
+
+.pd-price-save {
+  font-size: 12px;
+  font-weight: 700;
+  background: #fdecea;
+  color: #c0392b;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ---------- TỒN KHO ---------- */
+.pd-stock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #27ae60;
+}
+
+.pd-stock.out {
+  color: #c0392b;
+}
+
+.pd-stock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27ae60;
+  flex-shrink: 0;
+}
+
+.pd-stock.out .pd-stock-dot {
+  background: #c0392b;
+}
+
+/* ---------- META ---------- */
+.pd-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pd-meta-row {
+  display: flex;
+  gap: 12px;
+  font-size: 13.5px;
+}
+
+.pd-meta-label {
+  color: #8b8378;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.pd-meta-val {
+  color: #1a1a2e;
+  font-weight: 500;
+}
+
+/* ---------- SỐ LƯỢNG ---------- */
+.pd-qty-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1rem;
+}
+
+.pd-qty-label {
+  font-size: 13.5px;
+  color: #8b8378;
+  min-width: 60px;
+}
+
+.pd-qty {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #d5cfc5;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.pd-qty-btn {
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.pd-qty-btn:hover {
+  background: #f0ede8;
+}
+
+.pd-qty-val {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 18px;
+  min-width: 44px;
+  text-align: center;
+  color: #1a1a2e;
+}
+
+/* ---------- ACTIONS ---------- */
+.pd-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.pd-btn-cart {
+  flex: 1;
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  cursor: pointer;
+  border: none;
+  background: #ac0c0c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.pd-btn-cart:hover {
+  background: #bc1f1f;
+}
+
+.pd-btn-cart:active {
+  transform: scale(0.98);
+}
+
+.pd-btn-cart:disabled {
+  background: #b0a99e;
+  cursor: not-allowed;
+}
+
+.pd-btn-wish {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  border: 1.5px solid #d5cfc5;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b8378;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.pd-btn-wish:hover {
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.pd-btn-wish.active {
+  background: #fdecea;
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.pd-btn-wish.active svg {
+  fill: #c0392b;
+}
+.pd-btn-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 13px 20px;
+
+  border-radius: 12px;
+  background: #e21e1e;
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 400;
+  font-family: 'Be Vietnam Pro', sans-serif;
+
+  text-decoration: none; /* ❗ bỏ gạch chân của <a> */
+  cursor: pointer;
+
+  transition: background 0.2s, transform 0.1s;
+}
+
+.pd-btn-cart:hover {
+  background: #2c2c4a;
+}
+
+.pd-btn-cart:active {
+  transform: scale(0.98);
+}
+
+/* ---------- CAM KẾT ---------- */
+.pd-perks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.pd-perk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #6b6560;
+  background: #fff;
+  border: 1px solid #e8e4dc;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.pd-perk svg {
+  flex-shrink: 0;
+  color: #8b8378;
+}
+
+/* ---------- MÔ TẢ ---------- */
+.pd-desc-section {
+  max-width: 1100px;
+  margin: 3rem auto 0;
+}
+
+.pd-desc-inner {
+  background: #fff;
+  border: 1px solid #e8e4dc;
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+}
+
+.pd-desc-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e8e4dc;
+}
+
+.pd-desc-body {
+  font-size: 14.5px;
+  color: #4a4540;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .pd-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .pd-name {
+    font-size: 22px;
+  }
+
+  .pd-price {
+    font-size: 26px;
+  }
+
+  .pd-perks {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pd-desc-inner {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pd-actions {
+    flex-direction: column;
+  }
+
+  .pd-btn-wish {
+    width: 100%;
+    height: 48px;
+  }
+
+  .pd-perks {
+    grid-template-columns: 1fr;
+  }
+}
