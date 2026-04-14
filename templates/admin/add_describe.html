@@ -1,0 +1,47 @@
+<head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet" href="/static/css/add_product.css">
+</head>
+<div class="content">
+    <div class="page-header">
+        <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:10px;"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+            Mô tả sản phẩm
+        </h1>
+    </div>
+
+    <div class="form-card">
+        <form method="POST">
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>ID sản phẩm</label>
+                    <input name="product_id" placeholder="Nhập ID sản phẩm">
+                </div>
+                <div class="form-group full">
+                    <label>Mô tả sản phẩm</label>
+                    <input name="description"  placeholder="Nhập mô tả...">
+                </div>
+                <div class="form-group">
+                    <label>Đánh giá</label>
+                    <select name="rating">
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                    </select>
+                </div>
+                
+                
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Thêm mô tả
+                </button>
+                <a href="/admin/describe" class="btn-cancel">Huỷ</a>
+            </div>
+        </form>
+    </div>
+</div>
