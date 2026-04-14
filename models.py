@@ -63,5 +63,13 @@ class Product(db.Model):
     image = db.Column(db.Text)
     category = db.Column(db.String(100))
 
+    # Thêm mới
+    description = db.Column(db.Text)
+    rating = db.Column(db.Float, default=0.0)
+    review_count = db.Column(db.Integer, default=0)
+    sku = db.Column(db.String(50))
+    origin = db.Column(db.String(100))
+    brand = db.Column(db.String(100))
+    is_hot = db.Column(db.Boolean, default=False)
     def __repr__(self):
         return f"<Product {self.name}>"
