@@ -20,7 +20,7 @@ html{
 
 /* ===== TOP HEADER ===== */
 .top-header {
-    background: #d0021b;
+    background: #DF1314;
     display: flex;
     align-items: center;
     padding: 0 24px;
@@ -669,131 +669,112 @@ h2 img {
 }
 
 /* GRID */
+/* === GRID === */
 .products {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    padding: 0 100px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+  padding: 0 100px 30px;
 }
 
-/* CARD */
+/* === CARD === */
 .card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 12px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    transition: 0.25s;
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-
 .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  border-color: rgba(0,0,0,0.2);
 }
 
-/* IMAGE */
+/* === ẢNH === */
 .card img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
 }
+.card:hover img { transform: scale(1.05); }
 
-/* SALE (FIX LẠI CHO ĐÚNG) */
+/* === BADGE SALE === */
 .sale {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: #ffd400;
-    color: red;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 12px;
+  position: absolute;
+  top: 8px; left: 8px;
+  background: #cb120b;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  z-index: 1;
 }
 
-/* NAME */
-.name {
-    font-weight: bold;
-    margin: 8px 0;
-    height: 36px;
+/* === NỘI DUNG === */
+.card .name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.4;
+  padding: 10px 12px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* PRICE */
+/* === GIÁ === */
 .price-box {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 6px 12px 0;
+}
+.price-box .price {
+  font-size: 15px;
+  font-weight: 500;
+  color: #993C1D;
+}
+.price-box .old {
+  font-size: 11px;
+  color: #aaa;
+  text-decoration: line-through;
 }
 
-.price {
-    color: red;
-    font-size: 17px;
-    font-weight: bold;
-}
-
-.old {
-    color: gray;
-    text-decoration: line-through;
-    font-size: 13px;
-}
-
-/* RATE */
+/* === ĐÁNH GIÁ === */
 .rate {
-    margin-top: 6px;
-    color: orange;
-    font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px 10px;
+  font-size: 11px;
+  color: #999;
 }
 
-/* BUTTON */
-.btn {
-    position: relative;
-    
-    text-align: center;
-    display: inline-block; /* nhỏ gọn */
-    padding: 5px 20px;
-    border-radius: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    background: linear-gradient(45deg, #ff0000, #ff6600);
-    overflow: hidden;
-    transition: 0.2s;
+/* === NÚT MUA === */
+.card .btn {
+  display: block;
+  margin: auto 12px 12px;
+  text-align: center;
+  padding: 7px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #712B13;
+  background: #FAECE7;
+  border: 0.5px solid #F5C4B3;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s ease;
 }
-
-/* HIỆU ỨNG TIA */
-.btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        120deg, 
-        transparent,
-        rgba(255,255,255,0.8),
-        transparent
-    );
-    transform: skewX(-25deg);
-}
-
-/* khi hover → tia chạy */
-.btn:hover::before {
-    animation: shine 0.8s;
-}
-
-@keyframes shine {
-    100% {
-        left: 120%;
-    }
-}
-
-/* hover */
-.btn:hover {
-    transform: scale(1.05);
-}
-
+.card .btn:hover { background: #F5C4B3; }
 
 /* ===============FOOTER========================*/
 .footer {
